@@ -33,13 +33,8 @@ class CSVTests: XCTestCase {
         }
         
         let csvString = "id,name,age\n1,Alice,18\n2,Bob,19\n3,Charlie,\n"
-        do {
-            csvFromString = try CSV(csvString: csvString)
-        } catch let error1 as NSError {
-            error.memory = error1
-            csvFromString = nil
-        }
-    }
+        csvFromString = CSV(string: csvString)
+      }
     
     func testHeaders() {
         XCTAssertEqual(csv.headers, ["id", "name", "age"], "")

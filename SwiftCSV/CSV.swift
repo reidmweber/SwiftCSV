@@ -14,8 +14,8 @@ public class CSV {
     public var columns = Dictionary<String, [String]>()
     var delimiter = NSCharacterSet(charactersInString: ",")
     
-    public init(csvString: String?, delimiter: NSCharacterSet, encoding: UInt) throws {
-        if let csvStringToParse = csvString {
+    public init(string: String?, delimiter: NSCharacterSet, encoding: UInt) {
+        if let csvStringToParse = string {
             self.delimiter = delimiter
 
             let newline = NSCharacterSet.newlineCharacterSet()
@@ -35,7 +35,7 @@ public class CSV {
         } catch _ {
             csvString = nil
         };
-        try self.init(csvString: csvString, delimiter: delimiter, encoding: encoding)
+        self.init(string: csvString, delimiter: delimiter, encoding: encoding)
     }
     
     public convenience init(contentsOfURL url: NSURL) throws {
@@ -48,9 +48,9 @@ public class CSV {
         try self.init(contentsOfURL: url, delimiter: comma, encoding: encoding)
     }
     
-    public convenience init(csvString: String?) throws {
+    public convenience init(string: String?) {
         let comma = NSCharacterSet(charactersInString: ",")
-        try self.init(csvString: csvString, delimiter: comma, encoding: NSUTF8StringEncoding)
+        self.init(string: string, delimiter: comma, encoding: NSUTF8StringEncoding)
     }
     func parseHeaders(fromLines lines: [String]) -> [String] {
         return lines[0].componentsSeparatedByCharactersInSet(self.delimiter)

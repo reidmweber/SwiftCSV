@@ -11,15 +11,15 @@ import SwiftCSV
 
 class TSVTests: XCTestCase {
     var tsv: CSV!
-    var error: NSErrorPointer = nil
+    var error: NSErrorPointer? = nil
     
     override func setUp() {
-        let url = NSBundle(forClass: TSVTests.self).URLForResource("users", withExtension: "tsv")
-        let tab = NSCharacterSet(charactersInString: "\t")
+        let url = Bundle(for: TSVTests.self).url(forResource: "users", withExtension: "tsv")
+        let tab = CharacterSet(charactersIn: "\t")
         do {
-            tsv = try CSV(contentsOfURL: url!, delimiter: tab, encoding: NSUTF8StringEncoding)
+            tsv = try CSV(contentsOfURL: url!, delimiter: tab, encoding: String.Encoding.utf8)
         } catch let error1 as NSError {
-            error.memory = error1
+            error??.pointee = error1
             tsv = nil
         }
     }

@@ -13,22 +13,22 @@ class CSVTests: XCTestCase {
     var csv: CSV!
     var csvWithCRLF: CSV!
     var csvFromString: CSV!
-    var error: NSErrorPointer = nil
+    var error: NSErrorPointer? = nil
     
     override func setUp() {
-        let csvURL = NSBundle(forClass: CSVTests.self).URLForResource("users", withExtension: "csv")
+        let csvURL = Bundle(for: CSVTests.self).url(forResource: "users", withExtension: "csv")
         do {
             csv = try CSV(contentsOfURL: csvURL!)
         } catch let error1 as NSError {
-            error.memory = error1
+            error??.pointee = error1
             csv = nil
         }
         
-        let csvWithCRLFURL = NSBundle(forClass: CSVTests.self).URLForResource("users_with_crlf", withExtension: "csv")
+        let csvWithCRLFURL = Bundle(for: CSVTests.self).url(forResource: "users_with_crlf", withExtension: "csv")
         do {
             csvWithCRLF = try CSV(contentsOfURL: csvWithCRLFURL!)
         } catch let error1 as NSError {
-            error.memory = error1
+            error??.pointee = error1
             csvWithCRLF = nil
         }
         
